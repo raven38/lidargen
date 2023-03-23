@@ -12,7 +12,7 @@ import pdb
 def visualize_tensor(image):
 
     lidar_range = image[0] # range
-    depth_range = np.exp2(lidar_range*6)-1
+    depth_range = np.exp2(lidar_range*6.5)-1
     lidar_intensity = image[1] # intensity
 
     range_view = cv2.resize(np.concatenate((depth_range, lidar_intensity*60), axis = 0), (1024, 512))

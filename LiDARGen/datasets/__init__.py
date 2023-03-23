@@ -4,6 +4,7 @@ import torchvision.transforms as transforms
 from datasets.kitti360_im import KITTI360
 from datasets.lidar import LiDAR
 from datasets.kitti import KITTI
+from datasets.nuscenes import Nuscenes
 from torch.utils.data import Subset
 import numpy as np
 
@@ -60,6 +61,17 @@ def get_dataset(args, config):
                                 transforms.CenterCrop((config.data.image_size, config.data.image_width)),
                                 transforms.ToTensor(),
                             ]))
+    elif config.data.dataset == "nuScenes":
+        if config.data.random_flip:
+            dataset = Nuscenes(path=os.path.join(args.exp, 'datasets', 'Nuscenes'), config = config, transform=transforms.Compose([
+                transforms.RandomHorizontalFlip(p=0.5),
+                transforms.ToTensor()
+            ]))
+        else:
+            dataset = Nuscenes(path=os.path.join(args.exp, 'datasets', 'Nuscenes'), config = config, transform=transforms.ToTensor())
+
+        # test_dataset = Nuscenes(path=os.path.join(args.exp, 'datasets', 'Nuscenes'), split = "test", config = config, transform=transforms.ToTensor())
+        test_dataset = Nuscenes(path=os.path.join(args.exp, 'datasets', 'Nuscenes'), split = "train", config = config, transform=transforms.ToTensor())
 
     return dataset, test_dataset
 

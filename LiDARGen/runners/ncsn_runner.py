@@ -26,7 +26,7 @@ __all__ = ['NCSNRunner']
 def get_model(config):
     if config.data.dataset == 'CIFAR10' or config.data.dataset == 'CELEBA':
         return NCSNv2(config).to(config.device)
-    elif config.data.dataset == 'KITTI' or config.data.dataset == 'lidar':
+    elif config.data.dataset == 'KITTI' or config.data.dataset == 'lidar' or config.data.dataset == 'nuScenes':
         #return NCSN_LiDAR(config).to(config.device)
         return NCSN_LiDAR_small(config).to(config.device)
     elif config.data.dataset == 'KITTI360':

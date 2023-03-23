@@ -196,7 +196,7 @@ class Nuscenes(Dataset):
         ##Make negatives 0
         real = np.where(real<0, 0, real)
         
-        
+        intensity = intensity / 255.0
         #Apply log
 
         if(self.logscale):
